@@ -22,7 +22,7 @@
             <nav class="flex ml-auto">
                 <a href="#home" class="text-2xl mx-4 text-blue-500 hover:text-blue-300">Home</a>
                 <a href="produk" class="text-2xl mx-4 text-blue-500 hover:text-blue-300">Product</a>
-                <a href="contact.html" class="text-2xl mx-4 text-blue-500 hover:text-blue-300">Contact Us</a>
+                <a href="contact.html" class="text-2xl mx-4 text-blue-500 hover:text-blue-300">Keranjang</a>
             </nav>
         </div>
     </header>

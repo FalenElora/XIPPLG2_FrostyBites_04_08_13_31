@@ -22,7 +22,7 @@
             <nav class="flex ml-auto">
                 <a href="#home" class="text-2xl mx-4 text-blue-500 hover:text-blue-300">Home</a>
                 <a href="product.html" class="text-2xl mx-4 text-blue-500 hover:text-blue-300">Product</a>
-                <a href="contact.html" class="text-2xl mx-4 text-blue-500 hover:text-blue-300">Contact Us</a>
+                <a href="contact.html" class="text-2xl mx-4 text-blue-500 hover:text-blue-300">Keranjang</a>
             </nav>
         </div>
     </header>
@@ -45,35 +45,86 @@
     </section>
  <!-- home section ends -->
 
-  <!-- Product Section -->
-  <section class="container mx-auto px-6 py-8">
-    <h2 class="text-center text-6xl font-bold text-blue-500 mb-6">PRODUCT</h2>
-    <div class="grid gap-6 sm:grid-cols-2 md:grid-cols-3">
-        <!-- Content goes here -->
-    
+  <!-- kategori Section -->
+ <div class="w-full max-w-[85rem] py-10 px-4 sm:px-6 lg:px-8 mx-auto">
+  <section class="py-10 bg-blue-200 font-poppins rounded-lg">
+    <div class="px-4 py-4 mx-auto max-w-7xl lg:py-6 md:px-6">
+      <div class="flex flex-wrap mb-24 -mx-3">
+        <div class="w-full pr-2 lg:w-1/4 lg:block">
+          <div class="p-4 mb-5 bg-white border  ">
+            <h2 class="text-2xl font-bold "> Categories</h2>
+            <div class="w-16 pb-2 mb-6 border-b "></div>
+            <form action="{{ route('produk.filter') }}" method="GET">
+            <ul>
+              @foreach($kategoris as $kategori)
+                <li class="mb-4">
+                  <label for="" class="flex items-center dark:text-gray-400">
+                    <input type="checkbox" class="w-4 h-4 mr-2">
+                    <span class="text-lg">{{ $kategori->name }}</span> <!-- Menampilkan kategori dengan kolom 'name' -->
+                  </label>
+                </li>
+                
+              @endforeach
+            </ul>
+            </form>
+             
 
-        <!-- Card 1 -->
-        <div class="bg-white shadow-md rounded-lg p-4 text-center">
-        <img src="asset/image/produk1.png" alt="Springroll" class="mx-auto w-30 h-40 mb-4" />
-          <h3 class="text-lg font-bold">Springroll</h3>
-          <p class="text-gray-600 text-sm">Short description of the product goes here.</p>
+          </div>
+         
+          
+
+          <!-- product Section -->
         </div>
-        <!-- Card 2 -->
-        <div class="bg-white shadow-md rounded-lg p-4 text-center">
-        <img src="asset/image/produk2.png" alt="Kaki Naga" class="mx-auto w-30 h-40 mb-4" />
-          <h3 class="text-lg font-bold">Kaki Naga</h3>
-          <p class="text-gray-600 text-sm">Short description of the product goes here.</p>
-        </div>
-        <!-- Card 3 -->
-        <div class="bg-white shadow-md rounded-lg p-4 text-center">
-        <img src="asset/image/produk3.png" alt="Wonton King Dumplings" class="mx-auto w-30 h-40 mb-4" />
-          <h3 class="text-lg font-bold">Wonton King Dumplings</h3>
-          <p class="text-gray-600 text-sm">Short description of the product goes here.</p>
-        </div>
-        <!-- Add more product cards similarly -->
-      </div>
-    </div>
+        <div class="w-full px-3 lg:w-3/4">
+          <div class="px-3 mb-4">
+            <div class="items-center justify-between hidden px-3 py-2 bg-blue-500 md:flex  ">
+              <div class="flex items-center justify-between">
+               
+                <h2 class="text-2xl font-bold text-white">Frosty Bites</h2>
+               
+              </div>
+            </div>
+          </div>
+          <div class="flex flex-wrap items-center ">
+ 
+          @foreach($produk as $item)
+            <div class="w-full px-3 mb-6 sm:w-1/2 md:w-1/3">
+              <div class="border border-blue-500">
+                <div class="relative bg-gray-200">
+                  <a href="#" class="">
+                  <img src="{{ asset('storage/'.$item->photo) }}" alt="" class="w-50 h-56 mx-auto">
+                  </a>
+                </div>
+                <div class="p-3 ">
+                  <div class="flex items-center justify-between gap-2 mb-2">
+                  <h3 class="text-lg font-semibold text-gray-800 ">{{ $item->name }}</h3>
+                  <p class="text-gray-500 text-sm ml-auto">{{ $item->kategori->name }}</p>
+                  </div>
+                  <p class="text-lg ">
+                  <span class="text-green-600">{{ $item->harga }}</span>
+                  </p>
+                  
+                </div>
+                <div class="flex justify-center p-4 border-t border-blue-500">
+
+                  <a href="#" class="text-blue-500 flex items-center space-x-2  hover:text-red-500 ">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="w-4 h-4 bi bi-cart3 " viewBox="0 0 16 16">
+                      <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"></path>
+                    </svg><span>Add to Cart</span>
+                  </a>
+
+                </div>
+              </div>
+            </div>
+            @endforeach
+            
+            
+
+          </div>
+        
   </section>
+
+</div>
 
     <!-- footer section starts -->
     <section class="bg-blue-200 py-12">
