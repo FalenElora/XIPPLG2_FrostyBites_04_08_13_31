@@ -21,19 +21,19 @@ class ProdukController extends Controller
      // Fungsi untuk menyaring produk berdasarkan kategori yang dipilih
     // Fungsi untuk menyaring produk berdasarkan kategori yang dipilih
     public function filter(Request $request)
-    {
-        // Mengambil kategori yang dipilih oleh user
-        $kategoriIds = $request->input('kategori', []);
+{
+    // Mengambil kategori yang dipilih
+    $kategoriIds = $request->input('kategori', []);
 
-        // Menyaring produk berdasarkan kategori yang dipilih
-        $produk = produk::when(count($kategoriIds) > 0, function ($query) use ($kategoriIds) {
-            return $query->whereIn('kategori_id', $kategoriIds);
-        })->get();
+    // Menyaring produk berdasarkan kategori yang dipilih
+    $produk = produk::when(count($kategoriIds) > 0, function ($query) use ($kategoriIds) {
+        return $query->whereIn('kategori_id', $kategoriIds);
+    })->with('kategori')->get();
 
-        // Mengambil data kategori untuk ditampilkan di view
-        $kategoris = kategori::all();
+    // Mengambil semua kategori untuk ditampilkan di sidebar
+    $kategoris = kategori::all();
 
-        // Mengirim data ke view produk.blade.php
-        return view('produk', compact('produk', 'kategoris'));
-    }
+    // Mengembalikan data ke view
+    return view('produk', compact('produk', 'kategoris'));
+}
 }

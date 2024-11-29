@@ -14,18 +14,35 @@
 <body class="font-sans text-black">
      <!-- header section starts -->
 
-    <header class="fixed top-0 left-0 right-0 z-50 p-4 bg-white bg-opacity-80 shadow-lg">
-        <a class="text-4xl font-bold text-blue-500 flex items-center gap-2"> 
-          <img src="asset/image/logo.png" alt="" class="h-12"> FROSTY BITE 
+     <header class="fixed top-0 left-0 right-0 z-50 p-4 bg-white bg-opacity-80 shadow-lg  flex items-center justify-between">
+    <!-- Logo dan Nama -->
+    <a href="#home" class="text-4xl font-bold text-blue-500 flex items-center gap-3">
+        <img src="asset/image/logo.png" alt="Logo Frosty Bites" class="h-12">
+        FROSTY BITE
+    </a>
+
+    <!-- Navigasi -->
+    <nav class="flex items-center space-x-6">
+        <a href="#home" class="text-xl font-medium text-blue-500 hover:text-blue-700 transition-colors duration-300">
+            Home
         </a>
-        <div class="flex items-center justify-between">
-            <nav class="flex ml-auto">
-                <a href="#home" class="text-2xl mx-4 text-blue-500 hover:text-blue-300">Home</a>
-                <a href="produk" class="text-2xl mx-4 text-blue-500 hover:text-blue-300">Product</a>
-                <a href="contact.html" class="text-2xl mx-4 text-blue-500 hover:text-blue-300">Keranjang</a>
-            </nav>
-        </div>
-    </header>
+        <a href="{{ route('produk.index') }}" class="text-xl font-medium text-blue-500 hover:text-blue-700 transition-colors duration-300">
+            Product
+        </a>
+        <a href="{{ route('cart') }}" class="text-xl font-medium text-blue-500 hover:text-blue-700 transition-colors duration-300">
+            Keranjang
+        </a>
+    </nav>
+
+    <!-- Tombol Logout -->
+    <form action="{{ route('logout') }}" method="post" class="ml-4">
+        @csrf
+        <button
+            class="px-6 py-2 bg-gradient-to-r from-red-500 to-red-700 hover:from-red-600 hover:to-red-800 text-white font-bold rounded-lg shadow-md transform hover:scale-105 transition-all duration-300">
+            Logout
+        </button>
+    </form>
+</header>
      <!-- header section ends -->
      
     <!-- home section starts -->
@@ -38,6 +55,9 @@
                 <div class="absolute bottom-6 right-8 text-transparent text-9xl font-bold text-stroke-2 text-white opacity-50">
                     FROSTYBITE
                 </div>
+                @if(Auth::check())
+                <p class="text-white text-center font-semibold text-lg mt-4">Halo {{ Auth::user()->name }}, Selamat Datang di Frosty Bites</p>       
+                @endif
             </div>
         </div>
         <p class="text-xl text-white leading-relaxed max-w-[500px] mx-auto text-center whitespace-nowrap overflow-hidden border-r-[2px] border-white animate-typing">

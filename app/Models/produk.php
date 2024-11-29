@@ -21,4 +21,16 @@ class produk extends Model
     {
         return $this->belongsTo(kategori::class, 'kategori_id');
     }
+    public function keranjang()
+    {
+        return $this->hasMany(Cart::class);
+    }
+    static function detail_produk($id_produk)
+    {
+        // Ambil data produk berdasarkan ID
+        $data = Produk::where('id_produk', $id_produk)->first();
+    
+        // Kembalikan data produk
+        return $data;
+    }
 }

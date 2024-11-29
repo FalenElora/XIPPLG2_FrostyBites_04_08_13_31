@@ -1,50 +1,23 @@
-new Swiper('.card-wrapper', {
-    loop: true,
-    spaceBetween: 30,
-
-    // Pagination bullets
-    pagination: {
-        el: '.swiper-pagination',
-        clickable: true,
-        dynamicBullets: true
-    },
-
-    // Navigation arrows
-    navigation: {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev',
-    },
-
-    // Responsive breakpoints
-    breakpoints: {
-        0: {
-            slidesPerView: 1
+document.querySelectorAll('.kategori-checkbox').forEach(checkbox => {
+    checkbox.addEventListener('change', () => {
+      const selectedCategories = Array.from(document.querySelectorAll('.kategori-checkbox:checked'))
+        .map(cb => cb.value); // Ambil nilai kategori yang dipilih
+      
+      // Kirim ke server dengan AJAX
+      fetch('/filter-kategori', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
         },
-        768: {
-            slidesPerView: 2
-        },
-        1024: {
-            slidesPerView: 3
-        }
-    }
-});
-
-document.addEventListener("DOMContentLoaded", () => {
-    const text = "Frosty Bites Lezatnya Makanan Beku, Harganya Bikin Senyum!";
-    const pElement = document.querySelector('.content p');
-    
-    function typeEffect(text, element) {
-        let index = 0;
-        function type() {
-            if (index < text.length) {
-                element.innerHTML += text.charAt(index);
-                index++;
-                setTimeout(type, 50); 
-            }
-        }
-        type();
-    }
-
-    pElement.innerHTML = ''; 
-    typeEffect(text, pElement);
-});
+        body: JSON.stringify({ kategori: selectedCategories })
+      })
+      .then(response => response.json())
+      .then(data => {
+        // Update tampilan produk
+        const productContainer = document.querySelector('#product-container');
+        productContainer.innerHTML = data.html; // Tampilkan produk hasil filter
+      });
+    });
+  });
+  
